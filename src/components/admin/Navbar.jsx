@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = ({ admin, onMenuClick, isMobile }) => {
   const navigate = useNavigate();
 
-  // ✅ Get initials from admin name
+  //  Get initials from admin name
   const getInitials = (name) => {
     if (!name) return "A";
     return name
@@ -26,7 +26,7 @@ const Navbar = ({ admin, onMenuClick, isMobile }) => {
         borderBottom: "1px solid hsl(215, 20%, 25%)",
         zIndex: 1055,
         transition: "all 0.3s ease",
-        marginLeft: 0, // ✅ no independent margin
+        marginLeft: 0, // no independent margin
       }}
     >
       <div className="d-flex align-items-center justify-content-between flex-wrap">
