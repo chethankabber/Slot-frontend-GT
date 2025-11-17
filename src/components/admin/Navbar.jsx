@@ -53,9 +53,9 @@ const Navbar = ({ admin, onMenuClick, isMobile }) => {
               alt="Logo"
               style={{ height: "40px", borderRadius: "8px" }}
             />
-            <h5 className="mb-0 fw-bold text-light d-none d-sm-block">
+            {/* <h5 className="mb-0 fw-bold text-light d-none d-sm-block">
               Gandeevan Technologies
-            </h5>
+            </h5> */}
           </div>
         </div>
 
@@ -84,8 +84,8 @@ const Navbar = ({ admin, onMenuClick, isMobile }) => {
             {getInitials(admin?.name)}
           </div>
 
-          {/* Dark Mode */}
-          <button
+          {/* Dark Mode Toggle */}
+          {/* <button
             className="btn btn-outline-primary p-2"
             style={{
               borderColor: "hsl(215, 20%, 25%)",
@@ -93,7 +93,7 @@ const Navbar = ({ admin, onMenuClick, isMobile }) => {
             }}
           >
             🌙
-          </button>
+          </button>  */}
 
           {/* Logout */}
           <button
