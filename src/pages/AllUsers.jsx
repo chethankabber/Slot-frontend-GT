@@ -323,7 +323,7 @@ const AllUsers = () => {
                 {currentUserRole === "Admin" && (
                   <div className="d-flex gap-2 mt-2 mt-md-0">
                     <button
-                      className="btn btn-secondary border-light btn-sm"
+                      className="btn btn-secondary border border-light btn-sm"
                       onClick={() => openEditModal(user)}
                     >
                        Edit
