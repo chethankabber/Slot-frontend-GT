@@ -1,15 +1,14 @@
-// components/admin/dashboard/PermissionRequests.jsx
 
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PermissionRequestModal from "./PermissionRequestModal";
 
-const PermissionRequests = ({
+const PermissionRequests = ({                   //This component receives three props from PermissionRequests.jsx
   permissionRequests,
   onApprove,
   onReject,
 }) => {
-  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [selectedRequest, setSelectedRequest] = useState(null); // State to track which request is selected for modal
 
   return (
     <>
@@ -46,7 +45,7 @@ const PermissionRequests = ({
                   backgroundColor: "hsl(215, 25%, 14%)",
                   border: "1px solid hsl(215, 20%, 25%)",
                   cursor: "pointer",
-                }}
+                }}                                       //onClick sets selectedRequest to this request → which opens modal.
                 onClick={() => setSelectedRequest(req)} // ← OPEN MODAL
               >
                 <div>
@@ -67,7 +66,7 @@ const PermissionRequests = ({
       </div>
 
       {/* Modal */}
-      {selectedRequest && (
+      {selectedRequest && (      // If a request is selected, show the modal
         <PermissionRequestModal
           request={selectedRequest}
           onClose={() => setSelectedRequest(null)}

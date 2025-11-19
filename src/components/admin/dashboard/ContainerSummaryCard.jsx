@@ -1,4 +1,4 @@
-// components/admin/dashboard/ContainerSummaryCard.jsx
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Package } from "lucide-react";
@@ -6,14 +6,14 @@ import { Package } from "lucide-react";
 const ContainerSummaryCard = ({ container }) => {
   const navigate = useNavigate();
 
-  const occupied = container.slots.filter(
+  const occupied = container.slots.filter(     //list of all slots inside the container that have items
     (s) => s.items && s.items.length > 0
-  ).length;
+  ).length;                                   //count how many slots are occupied.
+ 
+  const total = container.slots.length;        //total number of slots in the container
+  const available = total - occupied;           //calculate available slots
 
-  const total = container.slots.length;
-  const available = total - occupied;
-
-  const percent = Math.round((occupied / total) * 100);
+  const percent = Math.round((occupied / total) * 100);   //calculate percentage of occupied slots
 
   return (
     <div

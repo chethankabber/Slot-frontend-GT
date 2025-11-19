@@ -2,9 +2,10 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { User } from 'lucide-react'
 
-const PermissionRequestModal = ({ request, onClose, onApprove, onReject }) => {
+const PermissionRequestModal = ({ request, onClose, onApprove, onReject }) => {   // request = selectedRequest object
   return (
-    <Modal show={true} onHide={onClose} centered>
+    // modal is always visible when this component renders.
+    <Modal show={true} onHide={onClose} centered>  
       <Modal.Header closeButton>
         <Modal.Title>Permission Request Details</Modal.Title>
       </Modal.Header>

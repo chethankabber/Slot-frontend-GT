@@ -1,4 +1,4 @@
-// components/admin/RecentActivity.jsx
+
 //-----------------------------------------------------------
 // Auto-generates activity from containers + items[] + taken[].
 //
@@ -12,14 +12,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Calendar, User, Package } from "lucide-react";
 
-const RecentActivity = ({ containers }) => {
-  if (!containers || containers.length === 0) return null;
+const RecentActivity = ({ containers }) => {              //Component receives a containers array as a prop.
+  if (!containers || containers.length === 0) return null; // No containers, no activity
 
-  const activities = [];
+  const activities = []; //Create an empty array that will store all activities
 
-  // -------------------------------------------------------------
+
   // BUILD ACTIVITY LIST FROM ALL CONTAINERS
-  // -------------------------------------------------------------
+
   containers.forEach((container) => {
     container.slots.forEach((slot) => {
       slot.items?.forEach((item) => {

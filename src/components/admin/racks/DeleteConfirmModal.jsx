@@ -1,5 +1,4 @@
-// components/admin/racks/DeleteConfirmModal.jsx
-// ----------------------------------------------------
+
 // Universal delete confirmation modal.
 // Can be used for deleting a rack, slot, or item.
 // Props:

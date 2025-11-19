@@ -3,14 +3,31 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 const AddRackModal = ({ show, onClose, onCreate }) => {
   const [rackName, setRackName] = useState("");
+  const [slotCount, setSlotCount] = useState(1); // NEW: user enters number of slots
 
-  const handleSubmit = () => {
-    if (!rackName.trim()) return;
+  const handleCreate = () => {
+    if (!rackName.trim()) {
+      alert("Please enter a rack name");
+      return;
+    }
+    if (slotCount < 1) {
+      alert("Slot count must be at least 1");
+      return;
+    }
 
-    // send the name back to parent
-    onCreate(rackName.trim());
+    const newRack = {
+      id: Date.now().toString(),
+      name: rackName,
+      slots: Array.from({ length: slotCount }, (_, i) => ({
+        slotNumber: i + 1,
+        items: [], // empty slot
+      })),
+    };
+
+    onCreate(newRack);
 
     setRackName("");
+    setSlotCount(1);
     onClose();
   };
 
@@ -22,12 +39,25 @@ const AddRackModal = ({ show, onClose, onCreate }) => {
 
       <Modal.Body>
         <Form>
+          {/* Rack Name */}
           <Form.Group>
             <Form.Label>Rack Name</Form.Label>
             <Form.Control
               placeholder="Enter rack name"
               value={rackName}
               onChange={(e) => setRackName(e.target.value)}
+            />
+          </Form.Group>
+
+          {/* Number of Slots (NEW FIELD) */}
+          <Form.Group className="mt-3">
+            <Form.Label>Number of Slots</Form.Label>
+            <Form.Control
+              type="number"
+              min="1"
+              placeholder="Enter number of slots"
+              value={slotCount}
+              onChange={(e) => setSlotCount(Number(e.target.value))}
             />
           </Form.Group>
         </Form>
@@ -37,8 +67,7 @@ const AddRackModal = ({ show, onClose, onCreate }) => {
         <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
-
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button variant="primary" onClick={handleCreate}>
           Create Rack
         </Button>
       </Modal.Footer>

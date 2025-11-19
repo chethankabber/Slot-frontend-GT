@@ -1,22 +1,19 @@
-// components/admin/racks/AddItemModal.jsx
-// ----------------------------------------------------
+
 // This modal is used for adding a new item to a slot.
 // Supports: name, qty, returnable, taken history (optional)
 // Parent component handles the actual update in state.
-//
-// Props:
-//  - show (boolean)
-//  - onClose()  -> close modal
-//  - onSubmit(itemObj) -> return new item to parent
-//  - slotNumber (number)
-// ----------------------------------------------------
 
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
+// Props received:
+// show → whether modal should be visible
+// onClose() → close the modal
+// onSubmit(itemObj) → return created item to parent component
+// slotNumber → which slot this item will be added to
 const AddItemModal = ({ show, onClose, onSubmit, slotNumber }) => {
   const [data, setData] = useState({
-    name: "",
+    name: "",                                            //This object stores everything typed in the form.
     quantity: 1,
     isReturnable: true,
     takenBy: "",
@@ -38,19 +35,19 @@ const AddItemModal = ({ show, onClose, onSubmit, slotNumber }) => {
     });
   };
 
-  // Submit handler
+  // Submit handler If no name → do nothing. 
   const handleSubmit = () => {
     if (!data.name.trim()) return;
 
-    const newItem = {
+    const newItem = {                    //Create new item object. unique ID using timestamp
       id: Date.now().toString(),
       name: data.name,
       quantity: Number(data.quantity),
       isReturnable: data.isReturnable,
-      taken: [],
+      taken: [],                         //taken → array for taken history
     };
 
-    // Optional taken entry
+    // Optional taken entry. If the user filled taken details
     if (data.takenBy && data.takenQty > 0) {
       newItem.taken.push({
         user: data.takenBy,
@@ -60,7 +57,7 @@ const AddItemModal = ({ show, onClose, onSubmit, slotNumber }) => {
       });
     }
 
-    onSubmit(newItem); // send item to parent
+    onSubmit(newItem); // send item to parent AND close modal
     resetForm();
     onClose();
   };

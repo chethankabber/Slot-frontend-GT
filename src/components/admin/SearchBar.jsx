@@ -1,20 +1,23 @@
 import React, { useState, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//containers → list of containers with slots + items
+//onFilterChange → parent wants to know filter changed
+//etSearchResult → used to show small “Jumped to Slot X” message
 const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
   const [term, setTerm] = useState("");
   const [filter, setFilter] = useState("All");
   const [showResults, setShowResults] = useState(false);
 
   
-  // JUMP + SCROLL + HIGHLIGHT FUNCTION HERE
+  // JUMP + SCROLL + HIGHLIGHT FUNCTION HERE //This creates the slot’s HTML id, example:rack-C1-slot-10
 
   const jumpToSlot = (containerId, slotNumber) => {
     const elementId = `rack-${containerId}-slot-${slotNumber}`;
     const el = document.getElementById(elementId);
 
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.scrollIntoView({ behavior: "smooth", block: "center" }); //Smooth scrolling to the slot.
 
       // highlight (flash yellow border)
       el.style.transition = "box-shadow 0.4s ease";
@@ -24,8 +27,8 @@ const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
         el.style.boxShadow = "none";
       }, 1500);
 
-      setSearchResult?.(`Jumped to Rack ${containerId} • Slot ${slotNumber}`);
-      setTimeout(() => setSearchResult?.(""), 1500);
+      // setSearchResult?.(`Jumped to Rack ${containerId} • Slot ${slotNumber}`);
+      // setTimeout(() => setSearchResult?.(""), 1500);
     }
   };
   // ---------------------------------------------
@@ -33,9 +36,9 @@ const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
   // SEARCH LOGIC — supports slot.items[]
   const matches = useMemo(() => {
     const q = term.trim().toLowerCase();
-    if (!q || q.length < 2) return [];
+    if (!q || q.length < 2) return [];   //Only search when user types 2+ letters
 
-    const out = [];
+    const out = [];                     //oop through all containers and their slots + items
     containers.forEach((container) => {
       container.slots.forEach((slot) => {
         if (!slot.items || slot.items.length === 0) return;
@@ -57,20 +60,20 @@ const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
     return out;
   }, [term, containers]);
 
-  const handleFilter = (value) => {
+  const handleFilter = (value) => {               //When user changes filter dropdown
     setFilter(value);
     onFilterChange?.(value);
     setSearchResult?.(`Filter: ${value}`);
-    setTimeout(() => setSearchResult?.(""), 1500);
+    setTimeout(() => setSearchResult?.(""), 1000);
   };
 
-  const clear = () => {
+  const clear = () => {             //Reset search + filter
     setTerm("");
     setShowResults(false);
     setSearchResult?.("");
   };
 
-  const onResultClick = (containerId, slotNumber) => {
+  const onResultClick = (containerId, slotNumber) => {      //When user clicks a search result /Jump to slot 
     jumpToSlot(containerId, slotNumber);
     setShowResults(false);
   };
@@ -80,7 +83,7 @@ const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
       {/* Search + Filter */}
       <div className="d-flex gap-2 align-items-center flex-wrap">
         <div style={{ flex: 1 }}>
-          <input
+          <input                                      //Whenever the user types → show results panel
             value={term}
             onChange={(e) => {
               setTerm(e.target.value);
@@ -123,7 +126,7 @@ const SearchBar = ({ containers = [], onFilterChange, setSearchResult }) => {
           {matches.length === 0 ? (
             <div className="small text-muted px-2 py-1">No items found.</div>
           ) : (
-            matches.map((m, idx) => (
+            matches.map((m, idx) => (                           //If matches exist → show clickable results
               <button
                 key={`${m.containerId}-${m.slotNumber}-${idx}`}
                 type="button"

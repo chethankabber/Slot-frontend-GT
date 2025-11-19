@@ -1,9 +1,7 @@
-// pages/Containers.jsx
-//---------------------------------------------------------------
-// CLEAN + FIXED + CONNECTED WITH UPDATED ITEM STRUCTURE
+
 // Handles: Add Rack, Add Slot, Add Item, Delete Slot, Delete Rack,
 // Filters, Search Integration (if needed).
-//---------------------------------------------------------------
+
 
 import React, { useState } from "react";
 import { mockContainers as initialMock } from "../data/Mockdata";
@@ -14,10 +12,9 @@ import ContainerGrid from "../components/admin/racks/ContainerGrid";
 
 
 const Containers = () => {
-  // -------------------------------------------------------------
-  // STORE ALL RACKS/CONTAINERS IN STATE
-  // (Convert mock data to ensure each slot has items array)
-  // -------------------------------------------------------------
+ 
+  // It loads initialMock, but makes sure every slot has an items[] array
+  // (Convert mock data to ensure each slot has items array) 
   const [containers, setContainers] = useState(() =>
     initialMock.map((c) => ({
       ...c,
@@ -28,17 +25,14 @@ const Containers = () => {
     }))
   );
 
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [searchResult, setSearchResult] = useState("");
+  const [activeFilter, setActiveFilter] = useState("All");           
+  const [searchResult, setSearchResult] = useState("");            //Used to show small messages
+  const [showRackModal, setShowRackModal] = useState(false);         //Modal state for Add Rack
 
-  const [showRackModal, setShowRackModal] = useState(false);
-
-  // -------------------------------------------------------------
   // ADD RACK
-  // -------------------------------------------------------------
   const handleCreateRack = (rackName) => {
     const newId = (containers.length + 1).toString();
-
+       
     const newRack = {
       id: newId,
       name: rackName,
@@ -56,9 +50,8 @@ const Containers = () => {
     setTimeout(() => setSearchResult(""), 2000);
   };
 
-  // -------------------------------------------------------------
+
   // ADD SLOT
-  // -------------------------------------------------------------
   const handleAddSlot = (containerId) => {
     setContainers((prev) =>
       prev.map((c) => {
@@ -76,9 +69,9 @@ const Containers = () => {
     setTimeout(() => setSearchResult(""), 1500);
   };
 
-  // -------------------------------------------------------------
+  
   // ADD ITEM INTO SLOT
-  // -------------------------------------------------------------
+  
   const handleAddItem = (containerId, slotNumber, itemObj) => {
     setContainers((prev) =>
       prev.map((c) => {
@@ -96,9 +89,7 @@ const Containers = () => {
     );
   };
 
-  // -------------------------------------------------------------
   // DELETE SLOT
-  // -------------------------------------------------------------
   const handleDeleteSlot = (containerId, slotNumber) => {
     setContainers((prev) =>
       prev.map((c) => {
@@ -112,18 +103,16 @@ const Containers = () => {
     );
   };
 
-  // -------------------------------------------------------------
+  
   // DELETE RACK
-  // -------------------------------------------------------------
   const handleDeleteRack = (containerId) => {
     setContainers((prev) =>
       prev.filter((c) => c.id !== containerId)
     );
   };
 
-  // -------------------------------------------------------------
+
   // FILTER CHANGE
-  // -------------------------------------------------------------
   const onFilterChange = (f) => {
     setActiveFilter(f);
     setSearchResult(`Filter: ${f}`);
@@ -132,7 +121,6 @@ const Containers = () => {
 
   return (
     <div className="container my-4">
-      {/* --------------------------- HEADER --------------------------- */}
       <div className="mb-4 d-flex justify-content-between align-items-start flex-column flex-md-row gap-3">
         <div>
           <h2 className="fw-bold mb-1">Container Management</h2>
@@ -149,7 +137,7 @@ const Containers = () => {
         </div>
       </div>
 
-      {/* --------------------------- SEARCH BAR --------------------------- */}
+      {/* ---SEARCH BAR ------ */}
       <div className="mb-4">
         <SearchBar
           containers={containers}
@@ -164,7 +152,7 @@ const Containers = () => {
         )}
       </div>
 
-      {/* --------------------------- RACK LIST --------------------------- */}
+      {/* -------- RACK LIST ---------- */}
       <div className="d-flex flex-column gap-4">
         {containers.map((container) => (
           <ContainerGrid
@@ -179,11 +167,11 @@ const Containers = () => {
         ))}
       </div>
 
-      {/* --------------------------- ADD RACK MODAL --------------------------- */}
+      {/* ----- ADD RACK MODAL ------ */}
       <AddRackModal
         show={showRackModal}
         onClose={() => setShowRackModal(false)}
-        onCreate={handleCreateRack}
+        onCreate={(rack) => setContainers([...containers, rack])}
       />
     </div>
   );

@@ -1,9 +1,5 @@
-// components/admin/racks/ContainerGrid.jsx
-//--------------------------------------------------
-// CLEAN + FIXED + WORKS WITH items[] structure
 // Handles: Add Slot, Delete Rack, Delete Slot,
 // Slot Detail Modal, Add Item Modal, Filters
-//--------------------------------------------------
 
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,17 +16,21 @@ const ContainerGrid = ({
   onDeleteSlot,
   onAddItem,
 }) => {
-  const [selectedSlot, setSelectedSlot] = useState(null);
 
+// State:--	            Meaning
+// selectedSlot     	: The slot the user clicked
+// showSlotModal	    : Show slot details?
+// showDeleteRackModal	: Show delete rack confirm?
+// showDeleteSlotModal	: Show delete slot confirm?
+// slotToDelete	Which   : slot number to delete
+  const [selectedSlot, setSelectedSlot] = useState(null);
   const [showSlotModal, setShowSlotModal] = useState(false);
   const [showDeleteRackModal, setShowDeleteRackModal] = useState(false);
   const [showDeleteSlotModal, setShowDeleteSlotModal] = useState(false);
-
   const [slotToDelete, setSlotToDelete] = useState(null);
 
-  // -----------------------------
-  // FILTER LOGIC
-  // -----------------------------
+  // FILTER LOGIC 
+  // Returns true if slot matches active filter
   const matchesFilter = (slot) => {
     const items = slot.items || [];
     const first = items[0];
@@ -49,9 +49,7 @@ const ContainerGrid = ({
     }
   };
 
-  // -----------------------------
-  // SLOT CLICK HANDLER
-  // -----------------------------
+  // SLOT CLICK HANDLER  /Find that slot data/ Save it as selectedSlot/ Open SlotDetailModal
   const handleSlotClick = (slotNumber) => {
     const slotObj = container.slots.find((s) => s.slotNumber === slotNumber);
     if (!slotObj) return;
@@ -60,9 +58,7 @@ const ContainerGrid = ({
     setShowSlotModal(true);
   };
 
-  // -----------------------------
-  // DELETE SLOT HANDLER
-  // -----------------------------
+  // DELETE SLOT HANDLER /After clicking "Yes" on delete:
   const confirmDeleteSlot = () => {
     if (slotToDelete) {
       onDeleteSlot(container.id, slotToDelete);
@@ -70,9 +66,8 @@ const ContainerGrid = ({
     setShowDeleteSlotModal(false);
   };
 
-  // -----------------------------
-  // DELETE RACK HANDLER
-  // -----------------------------
+  
+  // Deletes entire rack. After clicking "Yes" on delete:
   const confirmDeleteRack = () => {
     onDeleteRack(container.id);
     setShowDeleteRackModal(false);
@@ -105,7 +100,7 @@ const ContainerGrid = ({
             {/* DELETE RACK */}
             <button
               className="btn btn-sm btn-secondary"
-              onClick={() => setShowDeleteRackModal(true)}
+              onClick={() => setShowDeleteRackModal(true)}  //Shows delete rack confirmation modal
             >
               🗑
             </button>
@@ -118,8 +113,8 @@ const ContainerGrid = ({
             {container.slots.map((slot) => (
               <div
                 key={slot.slotNumber}
-                id={`rack-${container.id}-slot-${slot.slotNumber}`}
-                className="col-12 col-sm-6 col-md-4 col-lg-3"
+                id={`rack-${container.id}-slot-${slot.slotNumber}`}  //Each slot gets a unique HTML ID eg:rack-C1-slot-10
+                className="col-12 col-sm-6 col-md-4 col-lg-3"         //This is used by SearchBar “jumpToSlot”.
                 onClick={() => handleSlotClick(slot.slotNumber)}
                 style={{
                      scrollMarginTop: "140px",
@@ -127,9 +122,9 @@ const ContainerGrid = ({
                   opacity: matchesFilter(slot) ? 1 : 0.35,
                 }}
               >
-                <SlotCard
-                  slot={slot}
-                  containerName={container.name}
+                <SlotCard                                        //SlotCard has two inside actions:
+                  slot={slot}                                    // 1. onAddItemButton → opens Add Item Modal
+                  containerName={container.name}                 // 2. onDeleteSlot → opens Delete Slot Confirm Modal
                   containerId={container.id}
                   onAddItemButton={(id, slotNum) => {
                     const slotObj = container.slots.find(
@@ -148,16 +143,14 @@ const ContainerGrid = ({
           </div>
         </div>
       </div>
-
-      {/* ---------------------------- */}
+ 
       {/* SLOT DETAIL MODAL */}
-      {/* ---------------------------- */}
-      <SlotDetailModal
-        show={showSlotModal}
-        onClose={() => setShowSlotModal(false)}
-        slot={selectedSlot}
-        containerId={container.id}
-        onAddItem={onAddItem}
+      <SlotDetailModal                                   //✔️ Items
+        show={showSlotModal}                             //✔️ Add item button
+        onClose={() => setShowSlotModal(false)}          //✔️ Add item button
+        slot={selectedSlot}                              //✔️ Delete slot button
+        containerId={container.id}                      //✔️ Return item
+        onAddItem={onAddItem}                           //✔️ Taken history
         onDeleteSlot={() => {
           setSlotToDelete(selectedSlot?.slotNumber);
           setShowSlotModal(false);
@@ -165,9 +158,7 @@ const ContainerGrid = ({
         }}
       />
 
-      {/* ---------------------------- */}
       {/* CONFIRM DELETE RACK */}
-      {/* ---------------------------- */}
       <DeleteConfirmModal
         show={showDeleteRackModal}
         title="Delete Rack?"
@@ -176,9 +167,7 @@ const ContainerGrid = ({
         onCancel={() => setShowDeleteRackModal(false)}
       />
 
-      {/* ---------------------------- */}
       {/* CONFIRM DELETE SLOT */}
-      {/* ---------------------------- */}
       <DeleteConfirmModal
         show={showDeleteSlotModal}
         title="Delete Slot?"

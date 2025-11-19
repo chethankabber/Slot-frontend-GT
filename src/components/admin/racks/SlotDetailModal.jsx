@@ -1,8 +1,6 @@
-// src/components/admin/racks/SlotDetailModal.jsx
-// ------------------------------------------------------
+
 // Slot Detail + Add Item + Take Item Modal
 // Shows ALL items in a slot (was showing only items[0])
-// ------------------------------------------------------
 
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
@@ -14,13 +12,12 @@ const SlotDetailModal = ({
   containerId,
   onAddItem,
 }) => {
-  // ------------------------------
-  // Hooks (always at top)
-  // ------------------------------
+ 
+  // Hooks (Show/Hide Add Item Form)
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // Take modal state
-  const [showTakeModal, setShowTakeModal] = useState(false);
+  // Take modal state 
+  const [showTakeModal, setShowTakeModal] = useState(false);       //which item/ how many/ returnable or not/ when return
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [takeQty, setTakeQty] = useState(1);
   const [takeReturnable, setTakeReturnable] = useState(false);
@@ -45,10 +42,10 @@ const SlotDetailModal = ({
     }
   }, [show]);
 
-  // safe early return (after hooks)
+  // If no slot selected, return nothing
   if (!slot) return null;
 
-  const items = slot.items || [];
+  const items = slot.items || [];         //Prepare items
 
   // helper: find item object by id
   const findItemById = (id) => items.find((it) => it.id === id) || null;
@@ -60,9 +57,7 @@ const SlotDetailModal = ({
     return Number(it.quantity || 0) - used;
   };
 
-  // ------------------------------
   // Add item handler (keeps minimal fields only)
-  // ------------------------------
   const submitAddItem = () => {
     if (!newItem.name.trim()) return;
 
@@ -81,9 +76,7 @@ const SlotDetailModal = ({
     onClose();
   };
 
-  // ------------------------------
-  // Open Take modal for specific item
-  // ------------------------------
+ //Open Take Item Modal
   const openTakeModalFor = (item) => {
     setSelectedItemId(item.id);
     setTakeQty(1);
@@ -92,9 +85,8 @@ const SlotDetailModal = ({
     setShowTakeModal(true);
   };
 
-  // ------------------------------
+ 
   // Confirm taking item
-  // ------------------------------
   const handleTakeItem = () => {
     const item = findItemById(selectedItemId);
     if (!item) return;
@@ -111,7 +103,7 @@ const SlotDetailModal = ({
     const today = new Date().toISOString().split("T")[0];
 
     const record = {
-      user: "Admin",
+      user: "Ramesh",
       qty: qtyToTake,
       date: today,
       returnDate: takeReturnable ? takeReturnDate || null : null,
@@ -167,11 +159,11 @@ const SlotDetailModal = ({
                   </div>
 
                   <div className="text-end small">
-                    {it.isReturnable ? (
+                    {/* {it.isReturnable ? (
                       <span className="text-info">Returnable</span>
                     ) : (
                       <span className="text-warning">Non-returnable</span>
-                    )}
+                    )} */}
                     <div>Remaining: {remainingQty(it)}</div>
                   </div>
                 </div>
@@ -191,13 +183,17 @@ const SlotDetailModal = ({
 
                 {/* Actions for this item */}
                 <div className="d-flex justify-content-end mt-2 gap-2">
-                  <Button
-                    size="sm"
-                    variant="warning"
-                    onClick={() => openTakeModalFor(it)}
-                  >
-                    Take
-                  </Button>
+              <Button
+                variant="secondary"
+                    disabled={remainingQty(it) === 0}
+                     onClick={() => {
+                     if (remainingQty(it) > 0) { openTakeModalFor(it);
+                        }
+                       }}>
+                          Take
+              </Button>
+
+             
                   {/* Add item button stays global below — don't add second add here */}
                 </div>
               </div>
