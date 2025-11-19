@@ -1,69 +1,60 @@
-import React, { useState } from "react";
-import UserApproval from "../components/admin/UserApproval";
-import PermissionRequests from "../components/admin/PermissionRequests";
-import ContainerSummaryCard from "../components/admin/ContainerSummaryCard";
-import RecentActivity from "../components/admin/RecentActivity";
-import {mockContainers, mockPendingUsers, mockPermissionRequests,} from "../data/Mockdata";
+// pages/Dashboard.jsx
+//-----------------------------------------------------------
+// UPDATED TO USE LIVE CONTAINER DATA, NOT STATIC mockContainers
+// Shows:
+//  - Rack summary cards
+//  - Permission requests (unchanged)
+//  - Recent Activity (with updated items[])
+//-----------------------------------------------------------
 
-const Dashboard = () => {
-  const [pendingUsers, setPendingUsers] = useState(mockPendingUsers);
-  const [permissionRequests, setPermissionRequests] = useState(mockPermissionRequests);
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ContainerSummaryCard from "../components/admin/dashboard/ContainerSummaryCard";
+import RecentActivity from "../components/admin/dashboard/RecentActivity";
+import PermissionRequests from "../components/admin/dashboard/PermissionRequests";
 
-  // Handlers for user approval
-  const handleUserApprove = (userId) => {
-    setPendingUsers((prev) => prev.filter((u) => u.id !== userId));
-  };
 
-  const handleUserReject = (userId) => {
-    setPendingUsers((prev) => prev.filter((u) => u.id !== userId));
-  };
-
-  // Handlers for permission requests
-  const handlePermissionApprove = (reqId) => {
-    setPermissionRequests((prev) => prev.filter((r) => r.id !== reqId));
-  };
-
-  const handlePermissionReject = (reqId) => {
-    setPermissionRequests((prev) => prev.filter((r) => r.id !== reqId));
-  };
-
+const Dashboard = ({
+  containers,               // <-- LIVE data coming from App.jsx
+  permissionRequests,       // unchanged
+  onPermissionApprove,
+  onPermissionReject,
+}) => {
   return (
     <div className="container my-4">
       {/* Header */}
       <div className="mb-4">
         <h2 className="fw-bold mb-1">Dashboard</h2>
-        <p className="text-muted"> Overview of your container management system</p>
+        <p className="text-muted">
+          Overview of your container management system
+        </p>
       </div>
 
-      {/*  User Approval Section */}
-      {pendingUsers.length > 0 && (
-        <div className="mb-4">
-          <UserApproval pendingUsers={pendingUsers} onApprove={handleUserApprove} onReject={handleUserReject}/>
-        </div>
-      )}
-
-      {/* Permission Requests Section */}
-      {permissionRequests.length > 0 && (
+      {/* Permission Requests */}
+      {permissionRequests?.length > 0 && (
         <div className="mb-4">
           <PermissionRequests
             permissionRequests={permissionRequests}
-            onApprove={handlePermissionApprove}
-            onReject={handlePermissionReject}
+            onApprove={onPermissionApprove}
+            onReject={onPermissionReject}
           />
         </div>
       )}
 
-      {/* Container Summary Cards */}
+      {/* RACK CARDS */}
       <div className="row g-4 mb-4">
-        {mockContainers.map((container) => (
-          <div key={container.id} className="col-12 col-sm-6 col-lg-4">
+        {containers.map((container) => (
+          <div
+            key={container.id}
+            className="col-12 col-sm-6 col-lg-4"
+          >
             <ContainerSummaryCard container={container} />
           </div>
         ))}
       </div>
 
-      {/* Recent Activity */}
-      <RecentActivity containers={mockContainers} />
+      {/* RECENT ACTIVITY */}
+      <RecentActivity containers={containers} />
     </div>
   );
 };

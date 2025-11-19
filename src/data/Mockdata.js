@@ -3,161 +3,239 @@ export const mockAdmin = {
   email: 'admin@gmail.com',
 };
 
+// data/Mockdata.js
 export const mockContainers = [
   {
-    id: '1',
-    name: 'Rack C1',
+    id: "1",
+    name: "Rack C1",
     slots: [
-      { slotNumber: 1, item: null },
-      { slotNumber: 2, item: null },
+      {
+        slotNumber: 1,
+        items: [
+          {
+            id: "1",
+            name: "MacBook Air",
+            quantity: 10,
+            isReturnable: true,
+            taken: [
+              {
+                user: "Mike Johnson",
+                qty: 1,
+                date: "2025-01-12",
+                returnDate: "2025-01-18",
+              }
+            ]
+          }
+        ]
+      },
+      { slotNumber: 2, items: [] },
+
       {
         slotNumber: 3,
-        item: {
-          id: '1',
-          name: 'Laptop Dell XP5',
-          status: 'occupied',
-          takenBy: 'John Doe',
-          takenDate: '2025-01-15',
-          returnDate: '2025-01-20',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "2",
+            name: "Laptop Dell XP5",
+            quantity: 5,
+            isReturnable: true,
+            taken: [
+              {
+                user: "John Doe",
+                qty: 1,
+                date: "2025-01-15",
+                returnDate: "2025-01-20",
+              }
+            ]
+          }
+        ]
       },
-      { slotNumber: 4, item: null },
-      { slotNumber: 5, item: null },
+
+      { slotNumber: 4, items: [] },
+      { slotNumber: 5, items: [] },
+
       {
         slotNumber: 6,
-        item: {
-          id: '2',
-          name: 'iPad Pro',
-          status: 'non-returnable',
-          takenBy: 'Jane Smith',
-          takenDate: '2025-01-10',
-          returnDate: null,
-          isReturnable: false,
-        },
+        items: [
+          {
+            id: "3",
+            name: "iPad Pro",
+            quantity: 4,
+            isReturnable: false,
+            taken: [
+              {
+                user: "Jane Smith",
+                qty: 1,
+                date: "2025-01-10",
+                returnDate: null,
+              }
+            ]
+          }
+        ]
       },
-      { slotNumber: 7, item: null },
-      { slotNumber: 8, item: null },
-      { slotNumber: 9, item: null },
-      { slotNumber: 10, item: null },
-      { slotNumber: 11, item: null },
-      { slotNumber: 12, item: null },
-    ],
+
+      { slotNumber: 7, items: [] },
+      { slotNumber: 8, items: [] },
+      { slotNumber: 9, items: [] },
+      { slotNumber: 10, items: [] },
+      { slotNumber: 11, items: [] },
+      { slotNumber: 12, items: [] },
+    ]
   },
+
   {
-    id: '2',
-    name: 'Rack C2',
+    id: "2",
+    name: "Rack C2",
     slots: [
       {
         slotNumber: 1,
-        item: {
-          id: '3',
-          name: 'MacBook Air',
-          status: 'occupied',
-          takenBy: 'Mike Johnson',
-          takenDate: '2025-01-12',
-          returnDate: '2025-01-18',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "1",
+            name: "MacBook Air",
+            quantity: 8,
+            isReturnable: true,
+            taken: [
+              {
+                user: "Mike Johnson",
+                qty: 1,
+                date: "2025-01-12",
+                returnDate: "2025-01-18",
+              }
+            ]
+          }
+        ]
       },
-      { slotNumber: 2, item: null },
-      { slotNumber: 3, item: null },
-      { slotNumber: 4, item: null },
-      { slotNumber: 5, item: null },
+      { slotNumber: 2, items: [] },
+      { slotNumber: 3, items: [] },
+      { slotNumber: 4, items: [] },
+      { slotNumber: 5, items: [] },
+
       {
         slotNumber: 6,
-        item: {
-          id: '4',
-          name: 'Surface Pro',
-          status: 'occupied',
-          takenBy: 'Sarah Williams',
-          takenDate: '2025-01-14',
-          returnDate: '2025-01-19',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "4",
+            name: "Surface Pro",
+            quantity: 6,
+            isReturnable: true,
+            taken: [
+              {
+                user: "Sarah Williams",
+                qty: 1,
+                date: "2025-01-14",
+                returnDate: "2025-01-19",
+              }
+            ]
+          }
+        ]
       },
-      { slotNumber: 7, item: null },
-      { slotNumber: 8, item: null },
-      { slotNumber: 9, item: null },
-      { slotNumber: 10, item: null },
-      { slotNumber: 11, item: null },
+
+      { slotNumber: 7, items: [] },
+      { slotNumber: 8, items: [] },
+      { slotNumber: 9, items: [] },
+      { slotNumber: 10, items: [] },
+      { slotNumber: 11, items: [] },
+
       {
         slotNumber: 12,
-        item: {
-          id: '5',
-          name: 'Surface Pro',
-          status: 'occupied',
-          takenBy: 'Sarah Williams',
-          takenDate: '2025-01-14',
-          returnDate: '2025-01-19',
-          isReturnable: true,
-      }
-    },
-    ],
+        items: [
+          {
+            id: "5",
+            name: "Surface Pro",
+            quantity: 3,
+            isReturnable: true,
+            taken: [
+              {
+                user: "Sarah Williams",
+                qty: 1,
+                date: "2025-01-14",
+                returnDate: "2025-01-19",
+              }
+            ]
+          }
+        ]
+      },
+    ]
   },
+
   {
-    id: '3',
-    name: 'Rack C3',
+    id: "3",
+    name: "Rack C3",
     slots: [
       {
         slotNumber: 1,
-        item: {
-          id: '3',
-          name: 'MacBook Air',
-          status: 'occupied',
-          takenBy: 'Mike Johnson',
-          takenDate: '2025-01-12',
-          returnDate: '2025-01-18',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "1",
+            name: "MacBook Air",
+            quantity: 10,
+            isReturnable: true,
+            taken: [
+              { user: "Mike Johnson", qty: 1, date: "2025-01-12", returnDate: "2025-01-18" }
+            ]
+          }
+        ]
       },
-      { slotNumber: 2, item: null },
-      { slotNumber: 3, item: null },
-      { slotNumber: 4, item: null },
-      { slotNumber: 5, item: null },
+
+      { slotNumber: 2, items: [] },
+      { slotNumber: 3, items: [] },
+      { slotNumber: 4, items: [] },
+      { slotNumber: 5, items: [] },
+
       {
         slotNumber: 6,
-        item: {
-          id: '4',
-          name: 'Surface Pro',
-          status: 'occupied',
-          takenBy: 'Sarah Williams',
-          takenDate: '2025-01-14',
-          returnDate: '2025-01-19',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "4",
+            name: "Surface Pro",
+            quantity: 4,
+            isReturnable: true,
+            taken: [
+              { user: "Sarah Williams", qty: 1, date: "2025-01-14", returnDate: "2025-01-19" }
+            ]
+          }
+        ]
       },
-      { slotNumber: 7, item: null },
-      { slotNumber: 8, item: null },
+
+      { slotNumber: 7, items: [] },
+      { slotNumber: 8, items: [] },
+
       {
         slotNumber: 9,
-        item: {
-          id: '5',
-          name: 'Surface Pro',
-          status: 'occupied',
-          takenBy: 'Sarah Williams',
-          takenDate: '2025-01-14',
-          returnDate: '2025-01-19',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "5",
+            name: "Surface Pro",
+            quantity: 2,
+            isReturnable: true,
+            taken: [
+              { user: "Sarah Williams", qty: 1, date: "2025-01-14", returnDate: "2025-01-19" }
+            ]
+          }
+        ]
       },
+
       {
         slotNumber: 10,
-        item: {
-          id: '6',
-          name: 'Surface Pro',
-          status: 'occupied',
-          takenBy: 'Sarah Williams',
-          takenDate: '2025-01-14',
-          returnDate: '2025-01-19',
-          isReturnable: true,
-        },
+        items: [
+          {
+            id: "6",
+            name: "Surface Pro",
+            quantity: 3,
+            isReturnable: true,
+            taken: [
+              { user: "Sarah Williams", qty: 1, date: "2025-01-14", returnDate: "2025-01-19" }
+            ]
+          }
+        ]
       },
-      { slotNumber: 11, item: null },
-      { slotNumber: 12, item: null }
-    ],
-  },
+
+      { slotNumber: 11, items: [] },
+      { slotNumber: 12, items: [] },
+    ]
+  }
 ];
+
 
 export const mockPendingUsers = [
   {
@@ -185,21 +263,32 @@ export const mockPendingUsers = [
 export const mockPermissionRequests = [
   {
     id: "101",
-    userName: "Alice Johnson",
+    userName: "Ramesh Kumar",
     userEmail: "alice@example.com",
-    requestType: "Access Request",
-    message: "Requesting permission to access Rack A12 for maintenance.",
+
+    
+    itemName: "A12 Tools",
+    quantity: 3,
+    itemType: "Returnable", // Returnable / Non-returnable
+    returnDate: "2025-01-20", // only if returnable
+    message: "Need tools for maintenance work.",
+
     dateRequested: "2025-01-10",
     status: "Pending",
   },
   {
     id: "102",
-    userName: "Bob Smith",
+    userName: "Arjun J",
     userEmail: "bob@example.com",
-    requestType: "Return Delay",
-    message: "Requesting extension for returning items in Slot 5 by two days.",
+
+    itemName: "Motherboard",
+    quantity: 2,
+    itemType: "Non-returnable",
+    returnDate: null,
+    message: "Need permanent access to the equipment.",
+
     dateRequested: "2025-01-11",
     status: "Pending",
   },
-  
 ];
+
