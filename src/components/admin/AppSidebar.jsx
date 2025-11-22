@@ -20,13 +20,13 @@ const navigationItems = [
 export function AppSidebar({ isOpen, onClose }) {
   return (
     <>
-      {/* ✅ Mobile Overlay */}
+      {/*  Mobile Overlay */}
       {isOpen && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-lg-none"
           style={{
             backdropFilter: "blur(4px)",
-            zIndex: 1090, // ⬆️ increased  to appear over navbar
+            zIndex: 1090, // increased  to appear over navbar
           }}
           onClick={onClose}
         ></div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PermissionRequestModal from "./PermissionRequestModal";
-
+import { UserRound, UserCircle } from "lucide-react";
 const PermissionRequests = ({
   permissionRequests,
   onApprove,
@@ -53,7 +53,7 @@ const PermissionRequests = ({
                 >
                   {/* LEFT SIDE — USER INFO */}
                   <div className="mb-3 mb-md-0">
-                    <h6 className="fw-bold mb-1">{req.userName}</h6>
+                    <h6 className="fw-bold mb-1"> <UserCircle size={22} className="text-secondary m-1"/>{req.userName}</h6>
 
                     <div className="text-muted small d-flex flex-wrap gap-3">
                       <span>{req.itemName}</span>

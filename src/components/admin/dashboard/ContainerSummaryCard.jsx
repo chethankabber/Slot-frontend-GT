@@ -1,19 +1,18 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Package } from "lucide-react";
 
-const ContainerSummaryCard = ({ container }) => {
+const ContainerSummaryCard = ({ container, basePath = "/admin/racks" }) => {
   const navigate = useNavigate();
 
-  const occupied = container.slots.filter(     //list of all slots inside the container that have items
+  const occupied = container.slots.filter(
     (s) => s.items && s.items.length > 0
-  ).length;                                   //count how many slots are occupied.
- 
-  const total = container.slots.length;        //total number of slots in the container
-  const available = total - occupied;           //calculate available slots
+  ).length;
 
-  const percent = Math.round((occupied / total) * 100);   //calculate percentage of occupied slots
+  const total = container.slots.length;
+  const available = total - occupied;
+
+  const percent = Math.round((occupied / total) * 100);
 
   return (
     <div
@@ -25,7 +24,7 @@ const ContainerSummaryCard = ({ container }) => {
         border: "1px solid hsl(215, 20%, 25%)",
         cursor: "pointer",
       }}
-      onClick={() => navigate("/admin/racks")}   // ← GO TO RACKS PAGE
+      onClick={() => navigate(basePath)}   // ← FIXED HERE
     >
       <div className="d-flex align-items-center gap-2 mb-2">
         <Package size={22} className="text-secondary" />

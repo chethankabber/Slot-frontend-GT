@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -10,15 +9,21 @@ import History from "./pages/History";
 import AllUsers from "./pages/AllUsers";
 import NotFound from "./pages/NotFound";
 
+import ManagerLayout from "./pages/manager/ManagerLayout";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import ManagerRacks from "./pages/manager/ManagerRacks";
+import ManagerHistory from "./pages/manager/ManagerHistory";
+import ManagerUsers from "./pages/manager/ManagerUsers";
+
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 
-import { mockContainers, mockPermissionRequests } from "./data/Mockdata";
+import {
+  mockContainers,
+  mockPermissionRequests,
+} from "./data/Mockdata";
 
 function App() {
-  // ---------------------------------------------------------
-  // GLOBAL SHARED STATE
-  // ---------------------------------------------------------
   const [containers, setContainers] = useState(
     mockContainers.map((c) => ({
       ...c,
@@ -33,40 +38,41 @@ function App() {
     mockPermissionRequests
   );
 
-  // ---------------------------------------------------------
-  // PERMISSION APPROVE / REJECT
-  // ---------------------------------------------------------
   const handlePermissionApprove = (id) => {
-    setPermissionRequests((prev) => prev.filter((r) => r.id !== id));
+    setPermissionRequests((prev) =>
+      prev.map((req) =>
+        req.id === id ? { ...req, status: "Approved" } : req
+      )
+    );
   };
 
   const handlePermissionReject = (id) => {
-    setPermissionRequests((prev) => prev.filter((r) => r.id !== id));
+    setPermissionRequests((prev) =>
+      prev.filter((req) => req.id !== id)
+    );
   };
 
-  // ---------------------------------------------------------
-  // UPDATE CONTAINERS HELP FUNCTION
-  // ---------------------------------------------------------
   const updateContainers = (updateFn) => {
     setContainers((prev) => updateFn(prev));
   };
 
-  // ---------------------------------------------------------
-  // ROUTES
-  // ---------------------------------------------------------
+  const approvedPermissions = permissionRequests.filter(
+    (req) => req.status === "Approved"
+  );
+
   return (
     <BrowserRouter>
       <Routes>
-        {/* Redirect root */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Auth */}
+        {/* LOGIN + REGISTER */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Admin Layout */}
+        {/* =========================
+            ADMIN ROUTES (correct)
+        ========================== */}
         <Route path="/admin" element={<AdminDashboard />}>
-          {/* Dashboard */}
           <Route
             index
             element={
@@ -79,7 +85,6 @@ function App() {
             }
           />
 
-          {/* Racks / Containers Page */}
           <Route
             path="racks"
             element={
@@ -91,18 +96,44 @@ function App() {
             }
           />
 
-          {/* Individual Container */}
           <Route
             path="container/:id"
             element={<ContainerDetail containers={containers} />}
           />
 
-          {/* Other */}
           <Route path="history" element={<History />} />
           <Route path="users" element={<AllUsers />} />
         </Route>
 
-        {/* 404 */}
+        {/* =========================
+            MANAGER ROUTES (FIXED)
+        ========================== */}
+        <Route path="/manager" element={<ManagerLayout />}>
+          <Route
+            index
+            element={
+              <ManagerDashboard
+                containers={containers}
+                approvedPermissions={approvedPermissions}
+              />
+            }
+          />
+
+          <Route
+            path="racks"
+            element={
+              <ManagerRacks
+                containers={containers}
+                setContainers={setContainers}
+                updateContainers={updateContainers}
+              />
+            }
+          />
+
+          <Route path="history" element={<ManagerHistory />} /> 
+          <Route path="users" element={<ManagerUsers />} />
+        </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

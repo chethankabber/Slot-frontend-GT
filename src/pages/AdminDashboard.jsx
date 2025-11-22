@@ -11,7 +11,7 @@ const AdminDashboard = () => {
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
-  // ✅ Detect screen size to switch layout automatically
+  // Detect screen size to switch layout automatically
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 992);
     window.addEventListener("resize", handleResize);

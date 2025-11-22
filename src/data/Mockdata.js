@@ -3,6 +3,11 @@ export const mockAdmin = {
   email: 'admin@gmail.com',
 };
 
+export const mockManager = {
+  name: "Manoj",
+  email: "manager@gmail.com",
+};
+
 // data/Mockdata.js
 export const mockContainers = [
   {
@@ -307,5 +312,55 @@ export const mockPermissionRequests = [
     dateRequested: "2025-02-21",
     status: "Pending",
   },
+    {
+    id: "104",
+    userName: "Kumar",
+    userEmail: "emp@example.com",
+    itemName: "A12 Tools",
+    quantity: 6,
+    itemType: "Returnable",
+    returnDate: "2025-04-20",
+    whichProject: "Slot Management",
+    message: "Need tools for work.",
+    dateRequested: "2025-03-11",
+    status: "Approved"   // 👈 FORCE APPROVED
+  },
+  {
+    id: "105",
+    userName: "Abhi",
+    userEmail: "abhhui@example.com",
+    itemName: "A12 Tools",
+    quantity: 12,
+    itemType: "Returnable",
+    returnDate: "2025-07-09",
+    whichProject: "Management",
+    message: "Need tools for maintenance work.",
+    dateRequested: "2025-05-21",
+    status: "Approved"   // 👈 FORCE APPROVED
+  },
+  
 ];
 
+export const mockUsers = [
+  {
+    id: "u1",
+    name: "Ramesh Kumar",
+    email: "ramesh@example.com",
+    phone: "9876543210",
+    role: "User",
+  },
+  {
+    id: "u2",
+    name: "Sharma",
+    email: "sharama@example.com",
+    phone: "9123456780",
+    role: "User",
+  },
+  {
+    id: "u3",
+    name: "chethan",
+    email: "cheth@example.com",
+    phone: "9988776655",
+    role: "User",
+  },
+];

@@ -1,13 +1,22 @@
 // src/pages/Login.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/admin"); // go to dashboard even without entering data
+
+    // ROUTING BASED ON EMAIL ONLY (NO PASSWORD CHECK)
+    if (email === "admin@gmail.com") {
+      navigate("/admin");
+    } 
+    else if (email === "manager@gmail.com") {
+      navigate("/manager");
+    } 
+    
   };
 
   return (
@@ -34,18 +43,29 @@ const Login = () => {
             maxWidth: "400px",
           }}
         >
-          <h5 className="mb-2 fw-bold text-light text-center">Gandeevan Technologies</h5> 
+             <div className="d-flex align-items-center text-center justify-content-center">
+            <img
+              src="/GTLogos.png"
+              alt="Logo"
+              style={{ height: "80px", borderRadius: "8px" }}
+            />
+            {/* <h5 className="mb-0 fw-bold text-light d-none d-sm-block">
+              Gandeevan Technologies
+            </h5> */}
+          </div>
+          {/* <h5 className="mb-2 fw-bold text-light text-center">Gandeevan Technologies</h5>  */}
           <h2 className="mb-4 text-center">Login</h2>
+
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
+              <label htmlFor="email" className="form-label">Email address</label>
               <input
                 type="email"
                 className="form-control"
                 id="email"
                 placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 style={{
                   backgroundColor: "hsl(215, 25%, 12%)",
                   color: "hsl(210, 40%, 98%)",
@@ -53,10 +73,9 @@ const Login = () => {
                 }}
               />
             </div>
+
             <div className="mb-5">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <label htmlFor="password" className="form-label">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -69,6 +88,7 @@ const Login = () => {
                 }}
               />
             </div>
+
             <button
               type="submit"
               className="btn w-100"

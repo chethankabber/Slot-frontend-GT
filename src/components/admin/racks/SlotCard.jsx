@@ -43,7 +43,7 @@ const SlotCard = ({ slot, containerId, onDeleteSlot, containerName }) => {
       {/* SLOT CONTENT */}
       {hasItems ? (
         <>
-          <div className="fw-bold text-light">{items[0].name}</div>
+          {/* <div className="fw-bold text-light">{items[0].name}</div> */}
           <div className="text-info small fw-bold">Total Qty: {totalQty}</div>
           <div className="small text-muted">
             {items.length} item types in this slot

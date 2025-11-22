@@ -45,16 +45,27 @@ const jumpToSlot = (containerId, slotNumber) => {
       </div>
 
       {/* Permission Requests */}
-      {permissionRequests?.length > 0 && (
-        <div className="mb-4">
-          <PermissionRequests
-            permissionRequests={permissionRequests}
-            onApprove={onPermissionApprove}
-            onReject={onPermissionReject}
-          />
-        </div>
-      )}
+      <div className="mb-4">
+  {permissionRequests && permissionRequests.length > 0 ? (
+    (() => {
+      const pendingRequests = permissionRequests.filter(
+        (r) => r.status === "Pending"
+      );
 
+      return pendingRequests.length > 0 ? (
+        <PermissionRequests
+          permissionRequests={pendingRequests}
+          onApprove={onPermissionApprove}
+          onReject={onPermissionReject}
+        />
+      ) : (
+        <p className="text-muted">No pending requests.</p>
+      );
+    })()
+  ) : (
+    <p className="text-muted">No requests available.</p>
+  )}
+</div>
       {/* RACK CARDS */}
       <div className="row g-4 mb-4">
         {containers.map((container) => (
