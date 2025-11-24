@@ -77,7 +77,7 @@ const LowStockCard = ({ containers = [], onJumpToSlot }) => {
                    className="btn btn-secondary btn-sm ms-3"
                      onClick={() => onJumpToSlot(it.containerId, it.slotNumber)}
                      >
-                         Move>>>
+                         Move >>
                  </button>
 
             </div>

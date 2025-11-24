@@ -1,22 +1,20 @@
-// src/components/manager/SidebarManager.jsx
+// src/components/users/UserSidebar.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Package, History, ChevronLeft,UserCheck } from "lucide-react";
+import { LayoutDashboard, Package, History,UserCheck, UserPlus, UserPen } from "lucide-react";
 import { Button } from "react-bootstrap";
-import { Users } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
-const managerNavItems = [
-  { title: "Dashboard", url: "/manager", icon: LayoutDashboard },
-  { title: "Racks", url: "/manager/racks", icon: Package },
-  { title: "History", url: "/manager/history", icon: History },
-  { title: "Users", url: "/manager/users", icon: Users },
-  { title: "My profile", url: "/manager/profile", icon: UserCheck },
+const userNav = [
+  { title: "Dashboard", url: "/users", icon: LayoutDashboard },
+  { title: "Racks", url: "/users/racks", icon: Package },
+  { title: "My History", url: "/users/history", icon: History },
+  { title: "My profile", url: "/Users/profile", icon: UserCheck }
 ];
 
-const SidebarManager = ({ isOpen, onClose }) => {
+const UserSidebar = ({ isOpen, onClose }) => {
   return (
     <>
-      {/* MOBILE OVERLAY */}
       {isOpen && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-lg-none"
@@ -25,12 +23,11 @@ const SidebarManager = ({ isOpen, onClose }) => {
         />
       )}
 
-      {/* SIDEBAR */}
       <aside
         className="position-fixed top-0 start-0 h-100 d-flex flex-column shadow-sm"
         style={{
           width: isOpen ? "240px" : "70px",
-          transform: isOpen ? "translateX(0)" : "translateX(-100%)", // 👈 FIX
+          transform: isOpen ? "translateX(0)" : "translateX(-100%)",
           transition: "width 0.3s ease, transform 0.3s ease",
           background:
             "linear-gradient(180deg, hsl(215,25%,12%) 0%, hsl(215,25%,10%) 100%)",
@@ -39,51 +36,30 @@ const SidebarManager = ({ isOpen, onClose }) => {
           zIndex: 1100,
         }}
       >
-        {/* HEADER */}
         <div
           className="px-3 py-3 d-flex align-items-center justify-content-between"
-          style={{
-            borderBottom: "1px solid hsl(215,20%,25%)",
-          }}
+          style={{ borderBottom: "1px solid hsl(215,20%,25%)" }}
         >
-          {isOpen && (
-            <h6
-              className="text-muted text-uppercase mb-0"
-              style={{ fontFamily: "Merriweather, serif" }}
-            >
-              Slot Management
-            </h6>
-          )}
-
+          {isOpen && <h6 className="text-muted text-uppercase mb-0">Slot Management</h6>}
           <Button
             variant="outline-secondary"
             onClick={onClose}
             size="sm"
             className="rounded-circle border-0"
-            style={{
-              width: 30,
-              height: 30,
-              background: "hsl(215,25%,14%)",
-              color: "white",
-            }}
+            style={{ width: 30, height: 30, background: "hsl(215,25%,14%)", color: "white" }}
           >
-            <ChevronLeft
-              size={16}
-              className={!isOpen ? "rotate-180" : ""}
-              style={{ transition: "transform 0.3s ease" }}
-            />
+            <ChevronLeft size={16} className={!isOpen ? "rotate-180" : ""} />
           </Button>
         </div>
 
-        {/* NAV LINKS */}
         <nav className="px-2 py-2 flex-grow-1 overflow-auto">
-          {managerNavItems.map((item) => {
+          {userNav.map((item) => {
             const Icon = item.icon;
             return (
               <NavLink
                 key={item.url}
                 to={item.url}
-                end={item.url === "/manager"}   // 👈 ACTIVE HIGHLIGHT
+                end={item.url === "/users"}
                 className={({ isActive }) =>
                   `d-flex align-items-center rounded py-2 px-3 mb-1 ${
                     isActive ? "bg-primary fw-semibold text-white" : "text-light"
@@ -105,4 +81,4 @@ const SidebarManager = ({ isOpen, onClose }) => {
   );
 };
 
-export default SidebarManager;
+export default UserSidebar;

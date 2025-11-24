@@ -363,4 +363,27 @@ export const mockUsers = [
     phone: "9988776655",
     role: "User",
   },
+  {
+    id: "u4",
+    name: "Darshan",
+    email: "user@gmail.com",
+    phone: "9876543210",
+    role: "user",
+  },
 ];
+
+
+// ----- Dummy Borrowed Items (TEMPORARY) -----
+export const dummyBorrowedItems = [
+  {
+    itemName: "MacBook Air",
+    returnDate: "2025-03-18",
+    daysLeft: 4,
+  },
+  {
+    itemName: "Surface Pro",
+    returnDate: "2025-02-10",
+    daysLeft: -2,
+  },
+];
+

@@ -15,7 +15,9 @@ const Login = () => {
     } 
     else if (email === "manager@gmail.com") {
       navigate("/manager");
-    } 
+    }else if(email === "user@gmail.com"){
+      navigate("/users")
+    }
     
   };
 

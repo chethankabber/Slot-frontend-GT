@@ -53,7 +53,7 @@ const ManagerUsers = () => {
               <th style={{ padding: "14px" }}>Name</th>
               <th style={{ padding: "14px" }}>Role</th>
               <th style={{ padding: "14px" }}>Email</th>
-              <th style={{ padding: "14px" }}>Phone</th>
+              {/* <th style={{ padding: "14px" }}>Phone</th> */}
             </tr>
           </thead>
 
@@ -63,7 +63,7 @@ const ManagerUsers = () => {
                 <td style={{ padding: "17px" }}>{u.name}</td>
                 <td style={{ padding: "17px" }}>{u.role}</td>
                 <td style={{ padding: "17px" }}>{u.email}</td>
-                <td style={{ padding: "17px" }}>{u.phone}</td>
+                {/* <td style={{ padding: "17px" }}>{u.phone}</td> */}
               </tr>
             ))}
           </tbody>

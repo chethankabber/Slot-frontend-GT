@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -14,13 +15,22 @@ import ManagerDashboard from "./pages/manager/ManagerDashboard";
 import ManagerRacks from "./pages/manager/ManagerRacks";
 import ManagerHistory from "./pages/manager/ManagerHistory";
 import ManagerUsers from "./pages/manager/ManagerUsers";
+import ManagerProfile from "./pages/manager/ManagerProfile";
 
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 
+// NEW user layout + pages
+import UserLayout from "./pages/users/UserLayout";
+import UserDashboard from "./pages/users/UserDashboard";
+import UserRacks from "./pages/users/UserRacks";
+import UserHistory from "./pages/users/UserHistory";
+import UserProfile from "./pages/users/UserProfile";
+
 import {
   mockContainers,
   mockPermissionRequests,
+  mockUsers,
 } from "./data/Mockdata";
 
 function App() {
@@ -38,6 +48,7 @@ function App() {
     mockPermissionRequests
   );
 
+  // ---------- EXISTING ADMIN HANDLERS (kept as-is) ----------
   const handlePermissionApprove = (id) => {
     setPermissionRequests((prev) =>
       prev.map((req) =>
@@ -60,6 +71,51 @@ function App() {
     (req) => req.status === "Approved"
   );
 
+  // --------- NEW: User-related helpers & handlers ----------
+  // NOTE: In this mock, logged-in user is identified by email "user@gmail.com".
+  // You can replace this with actual auth later.
+  const currentUserEmail = "user@gmail.com";
+  const currentUser = mockUsers.find((u) => u.email === currentUserEmail) || {
+    name: "User A",
+    email: currentUserEmail,
+  };
+
+  // Create a new user permission request (from User Dashboard modal)
+  const handleCreatePermissionRequest = (newRequestData) => {
+    // create unique id (simple mock)
+    const newId = (Math.floor(Math.random() * 90000) + 10000).toString();
+    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+    const requestObj = {
+      id: newId,
+      userName: currentUser.name,
+      userEmail: currentUser.email,
+      itemName: newRequestData.itemName,
+      quantity: Number(newRequestData.quantity),
+      itemType: newRequestData.returnable ? "Returnable" : "Non-returnable",
+      returnDate: newRequestData.returnable ? newRequestData.returnDate : null,
+      whichProject: newRequestData.projectName,
+      message: newRequestData.message || "",
+      dateRequested: today,
+      status: "Pending",
+    };
+
+    setPermissionRequests((prev) => [requestObj, ...prev]);
+  };
+
+  // Cancel a pending request (user action)
+  const handleCancelRequest = (requestId) => {
+    setPermissionRequests((prev) =>
+      prev.filter((r) => !(r.id === requestId && r.status === "Pending"))
+    );
+  };
+
+  // Helper: get only this user's requests
+  const getUserRequests = (email = currentUserEmail) =>
+    permissionRequests.filter((r) => r.userEmail === email);
+
+  // ----------------------------------------------------------------
+
   return (
     <BrowserRouter>
       <Routes>
@@ -70,7 +126,56 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* =========================
-            ADMIN ROUTES (correct)
+            USER ROUTES (NEW)
+            Base path: /users
+        ========================== */}
+        <Route path="/users" element={<UserLayout />}>
+
+            {/* USER DASHBOARD */}
+           <Route
+             index
+              element={
+               <UserDashboard
+                  containers={containers}
+                   permissionRequests={getUserRequests()}
+                    onCreateRequest={handleCreatePermissionRequest}
+                    onCancelRequest={handleCancelRequest}
+                    currentUser={currentUser}
+                />
+                }
+            />
+
+            {/* USER RACKS */}
+            <Route
+              path="racks"
+              element={<UserRacks containers={containers} />}
+             />
+
+             {/* USER HISTORY */}
+               <Route
+                path="history"
+                 element={
+                 <UserHistory
+                    containers={containers}
+                     currentUserEmail={currentUserEmail}
+                   />
+                 }
+               />
+
+             {/* USER PROFILE  → FIXED HERE! */}
+              <Route
+                path="profile"
+                    element={
+                     <UserProfile
+                      currentUser={mockUsers.find((u) => u.email === "user@gmail.com")}
+                     onUpdateUser={(updated) => console.log(updated)}
+                     />
+                    }
+                  />
+
+             </Route>
+        {/* =========================
+            ADMIN ROUTES (unchanged)
         ========================== */}
         <Route path="/admin" element={<AdminDashboard />}>
           <Route
@@ -106,33 +211,45 @@ function App() {
         </Route>
 
         {/* =========================
-            MANAGER ROUTES (FIXED)
-        ========================== */}
-        <Route path="/manager" element={<ManagerLayout />}>
-          <Route
-            index
-            element={
-              <ManagerDashboard
-                containers={containers}
-                approvedPermissions={approvedPermissions}
-              />
-            }
-          />
+    MANAGER ROUTES (unchanged)
+========================== */}
+<Route path="/manager" element={<ManagerLayout />}>
+    <Route
+      index
+      element={
+        <ManagerDashboard
+          containers={containers}
+          approvedPermissions={approvedPermissions}
+        />
+      }
+    />
 
-          <Route
-            path="racks"
-            element={
-              <ManagerRacks
-                containers={containers}
-                setContainers={setContainers}
-                updateContainers={updateContainers}
-              />
-            }
-          />
+    <Route
+      path="racks"
+      element={
+        <ManagerRacks
+          containers={containers}
+          setContainers={setContainers}
+          updateContainers={updateContainers}
+        />
+      }
+    />
 
-          <Route path="history" element={<ManagerHistory />} /> 
-          <Route path="users" element={<ManagerUsers />} />
-        </Route>
+    <Route path="history" element={<ManagerHistory />} />
+
+    <Route
+      path="profile"
+      element={
+        <ManagerProfile
+          currentUser={mockUsers.find((u) => u.email === "manager@gmail.com")}
+          onUpdateUser={(updated) => console.log(updated)}
+        />
+      }
+    />
+
+    <Route path="users" element={<ManagerUsers />} />
+</Route>
+
 
         <Route path="*" element={<NotFound />} />
       </Routes>

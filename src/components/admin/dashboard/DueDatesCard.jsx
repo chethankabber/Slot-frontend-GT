@@ -52,11 +52,12 @@ const ItemDueCard = ({ containers = [] }) => {
     style={{
       maxHeight: "320px",
       overflowY: "auto",
+      overflowX: "auto",
       paddingRight: "6px",
     }}
   >
     {/* Table container removed extra background */}
-    <div style={{ borderRadius: 8, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)" }}>
+    <div style={{ borderRadius: 8, overflowx: "hidden", overflowY: "hidden", border: "1px solid rgba(0,0,0,0.06)" }}>
       <table className=" table-bordered mb-0" style={{ width: "100%", backgroundColor: "#191f24" }}>
         <thead
           style={{
