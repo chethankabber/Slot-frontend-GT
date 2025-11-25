@@ -11,8 +11,8 @@ const PermissionRequestModal = ({ request, onClose, onApprove, onReject }) => { 
       </Modal.Header>
 
       <Modal.Body>
-        <User size={14} className="mb-3" />
-        <p><strong>User:</strong> {request.userName}</p>
+        
+        <p> <strong>User:</strong> {request.userName}</p>
         <p><strong>Email:</strong> {request.userEmail}</p>
 
         <hr />

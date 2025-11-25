@@ -129,9 +129,34 @@ const UserDashboard = ({ permissionRequests = [], onCreateRequest, onCancelReque
                 <div>
                   <strong>Qty :</strong> {req.quantity}
                 </div>
-
+                
+                
                 {/* Cancel button (only pending) */}
-                {req.status === "Pending" && (
+                {/* {req.status === "Pending" && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      cancelRequest(req.id);
+                    }}
+                  >
+                    Cancel Request
+                  </Button>
+                )} */}
+              </div>
+
+              {/* ---------- ROW 2 ---------- */}
+              <div className="d-flex justify-content-between mt-2">
+                <div>
+                  <strong>Project :</strong> {req.whichProject}
+                </div>
+
+                <div className="d-flex justify-content-center mt-2">
+                  <strong>Status :</strong> <StatusTag status={req.status} />
+                </div>
+                  
+                  {req.status === "Pending" && (
                   <Button
                     size="sm"
                     variant="secondary"
@@ -143,21 +168,9 @@ const UserDashboard = ({ permissionRequests = [], onCreateRequest, onCancelReque
                     Cancel Request
                   </Button>
                 )}
-              </div>
-
-              {/* ---------- ROW 2 ---------- */}
-              <div className="d-flex justify-content-between mt-2">
-                <div>
-                  <strong>Project :</strong> {req.whichProject}
-                </div>
-
-                <div>
-                  <strong>Status :</strong> <StatusTag status={req.status} />
-                </div>
-
-                <div className="text-muted" style={{ cursor: "pointer" }}>
-                  Click more details →
-                </div>
+                {/* <div className="text-muted" style={{ cursor: "pointer" }}>
+                   -                 →
+                </div> */}
               </div>
             </div>
           ))
@@ -283,13 +296,13 @@ const UserDashboard = ({ permissionRequests = [], onCreateRequest, onCancelReque
         <Modal.Body style={{ background: "hsl(215,25%,14%)", color: "white" }}>
           {selectedReq && (
             <div>
-              <p>
+              {/* <p>
                 <strong>Requested by:</strong> {selectedReq.userName}
                 <br />
                 <small className="text-muted">{selectedReq.userEmail}</small>
-              </p>
+              </p> */}
 
-              <hr />
+              {/* <hr /> */}
               <p><strong>Item:</strong> {selectedReq.itemName}</p>
               <p><strong>Quantity:</strong> {selectedReq.quantity}</p>
               <p><strong>Project:</strong> {selectedReq.whichProject}</p>
@@ -302,7 +315,7 @@ const UserDashboard = ({ permissionRequests = [], onCreateRequest, onCancelReque
               <p><strong>Requested on:</strong> {selectedReq.dateRequested}</p>
               <p><strong>Status:</strong> <StatusTag status={selectedReq.status} /></p>
 
-              <hr />
+              {/* <hr /> */}
               <p><strong>Message:</strong></p>
               <div
                 style={{

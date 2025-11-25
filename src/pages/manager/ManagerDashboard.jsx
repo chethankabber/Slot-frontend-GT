@@ -79,7 +79,7 @@ const ManagerDashboard = ({ containers, approvedPermissions, }) => {
               </div>
               {/* RIGHT SIDE */}
               <div className="text-end">
-                <div className="text-secondary fw-bold">View Details →</div>
+                <div className="text-secondary fw-bold">View Details</div>
                 
               </div>
             </div>

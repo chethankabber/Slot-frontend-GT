@@ -103,7 +103,7 @@ const PermissionRequests = ({
                         setSelectedRequest(req);
                       }}
                     >
-                      Click for details →
+                       →
                     </span>
                   </div>
                 </div>
