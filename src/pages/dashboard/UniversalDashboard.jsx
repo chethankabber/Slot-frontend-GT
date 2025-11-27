@@ -435,6 +435,9 @@ const UniversalDashboard = ({
                 <p>
                   <strong>Project:</strong> {selectedReq.whichProject}
                 </p>
+                 <p>
+                  <strong>Retrun Date:</strong> {selectedReq.returnDate || "Non-Returnable"}
+                </p>
                 <p>
                   <strong>Status:</strong> <StatusTag status={selectedReq.status} />
                 </p>
