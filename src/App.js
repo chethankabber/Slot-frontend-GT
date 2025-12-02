@@ -126,9 +126,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         {/* <Route path="/register" element={<Register />} /> */}
 
-        {/* ===================================================
-                    USER ROUTES (UNIVERSAL LAYOUT)
-        =================================================== */}
+        {/*  USER ROUTES (UNIVERSAL LAYOUT)*/}
         <Route path="/users/*" element={<UniversalLayout role="user" />}>
           <Route
             path="dashboard"
@@ -170,9 +168,7 @@ function App() {
           <Route index element={<Navigate to="/users/dashboard" replace />} />
         </Route>
 
-        {/* ===================================================
-                    ADMIN ROUTES (UNIVERSAL LAYOUT)
-        =================================================== */}
+        {/* ADMIN ROUTES (UNIVERSAL LAYOUT)     */}
         <Route path="/admin/*" element={<UniversalLayout role="admin" />}>
           <Route
             path="dashboard"
@@ -210,9 +206,7 @@ function App() {
           <Route index element={<Navigate to="/admin/dashboard" replace />} />
         </Route>
 
-        {/* ===================================================
-                    MANAGER ROUTES (UNIVERSAL LAYOUT)
-        =================================================== */}
+        {/*  MANAGER ROUTES (UNIVERSAL LAYOUT) */}
         <Route path="/manager/*" element={<UniversalLayout role="manager" />}>
           <Route
             path="dashboard"
